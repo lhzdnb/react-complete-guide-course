@@ -1,5 +1,5 @@
 /**
- * props.children is simply the content between the tags.
+ * props.children is simply all content between the tags.
  *
  * `<TabButton>Components</TabButton>`
  *
@@ -10,9 +10,13 @@
  */
 
 export default function TabButton(props) {
+  function handleClick() {
+    console.log("Hello World!");
+  }
+
   return (
     <li>
-      <button>{props.children}</button>
+      <button onClick={handleClick}>{props.children}</button>
     </li>
   );
 }
