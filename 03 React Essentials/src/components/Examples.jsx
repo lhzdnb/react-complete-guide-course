@@ -29,13 +29,14 @@ export default function Examples() {
   return (
     <Section id="examples" title="Examples">
       <Tabs
+        ButtonsContainer="menu"
         buttons={buttons.map((btn, index) => (
           <TabButton
             isActive={selectedTopic === btn}
             onClick={() => handleSelect(btn)}
             key={index}
           >
-            {btn.slice(0, 1).toUpperCase() + btn.slice(1)}
+            {btn.toUpperCase()}
           </TabButton>
         ))}
       >
