@@ -1,20 +1,22 @@
+import { useState } from "react";
 import Player from "./components/Player.jsx";
 import GameBoard from "./components/GameBoard.jsx";
-import { useState } from "react";
 import Log from "./components/Log.jsx";
+import GameOver from "./components/GameOver.jsx";
 
-function deriveActivePlayer(gameTurns) {
-  let currentPlayer = "X";
-  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
-    currentPlayer = "O";
-  }
-  return currentPlayer;
-}
+import { PLAYERS } from "./config.js";
+import { deriveWinner, deriveActivePlayer, deriveGameBoard } from "./helper.js";
 
 function App() {
+  const [players, setPlayers] = useState(PLAYERS);
+
   // const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurns, setGameTurns] = useState([]);
+
   const activePlayer = deriveActivePlayer(gameTurns);
+  const gameBoard = deriveGameBoard(gameTurns);
+  const winner = deriveWinner(gameBoard, players);
+  const draw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex) {
     // setActivePlayer((activePlayer) => (activePlayer === "X" ? "O" : "X"));
@@ -27,22 +29,37 @@ function App() {
     });
   }
 
+  function handleRestart() {
+    setGameTurns([]);
+  }
+
+  function handleNameChange(symbol, newName) {
+    setPlayers((prevPlayers) => {
+      return { ...prevPlayers, [symbol]: newName };
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            initialName="Player 1"
+            initialName={PLAYERS.X}
             symbol="X"
             isActive={activePlayer === "X"}
+            onChangeName={handleNameChange}
           />
           <Player
-            initialName="Player 2"
+            initialName={Player.O}
             symbol="O"
             isActive={activePlayer === "O"}
+            onChangeName={handleNameChange}
           />
         </ol>
-        <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
+        {(winner || draw) && (
+          <GameOver winner={winner} onRestart={handleRestart} />
+        )}
+        <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
     </main>
