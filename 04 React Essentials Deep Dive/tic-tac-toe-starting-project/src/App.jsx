@@ -50,7 +50,7 @@ function App() {
             onChangeName={handleNameChange}
           />
           <Player
-            initialName={Player.O}
+            initialName={PLAYERS.O}
             symbol="O"
             isActive={activePlayer === "O"}
             onChangeName={handleNameChange}
