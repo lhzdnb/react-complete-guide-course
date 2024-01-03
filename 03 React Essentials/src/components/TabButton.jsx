@@ -4,6 +4,8 @@
  * `<TabButton>Components</TabButton>`
  *
  * `props.children` is `Components`
+ * @param children
+ * @param isActive
  * @param props
  * @returns {JSX.Element}
  * @constructor
