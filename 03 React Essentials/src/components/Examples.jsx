@@ -29,7 +29,6 @@ export default function Examples() {
   return (
     <Section id="examples" title="Examples">
       <Tabs
-        ButtonsContainer="menu"
         buttons={buttons.map((btn, index) => (
           <TabButton
             isActive={selectedTopic === btn}
