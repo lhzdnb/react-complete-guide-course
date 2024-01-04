@@ -1,5 +1,44 @@
+import UserInput from "./components/UserInput.jsx";
+import Header from "./components/Header.jsx";
+import ResultTable from "./components/ResultTable.jsx";
+import { useState } from "react";
+import { INVESTMENT, SECOND_ROW_DATA } from "./inputData.js";
+import { calculateInvestmentResults } from "./util/investment.js";
+
 function App() {
-  return <></>;
+  const [annualData, setAnnualData] = useState({
+    ...INVESTMENT,
+    ...SECOND_ROW_DATA,
+  });
+  console.log(annualData);
+  const investmentData = {
+    initialInvestment: annualData.initialInvestment,
+    annualInvestment: annualData.annualInvestment,
+  };
+  const secondRowData = {
+    expectedReturn: annualData.expectedReturn,
+    duration: annualData.duration,
+  };
+  function handleInputChange(event, label) {
+    setAnnualData((prevValue) => {
+      return { ...prevValue, [label]: Number(event.target.value) };
+    });
+  }
+
+  const calcResult = calculateInvestmentResults(annualData);
+  console.log(calcResult);
+  return (
+    <>
+      <Header />
+      <UserInput
+        investmentData={investmentData}
+        secondRowData={secondRowData}
+        handleInputChange={handleInputChange}
+      />
+      .
+      <ResultTable annualData={{ ...annualData }} />
+    </>
+  );
 }
 
 export default App;
