@@ -34,7 +34,6 @@ function App() {
         secondRowData={secondRowData}
         handleInputChange={handleInputChange}
       />
-      .
       <ResultTable
         calcResult={calcResult}
         initialInvestment={annualData.initialInvestment}
