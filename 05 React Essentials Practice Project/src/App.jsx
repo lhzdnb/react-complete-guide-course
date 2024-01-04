@@ -6,26 +6,29 @@ import { INVESTMENT, SECOND_ROW_DATA } from "./inputData.js";
 import { calculateInvestmentResults } from "./util/investment.js";
 
 function App() {
-  const [annualData, setAnnualData] = useState({
+  const [inputData, setInputData] = useState({
     ...INVESTMENT,
     ...SECOND_ROW_DATA,
   });
   const investmentData = {
-    initialInvestment: annualData.initialInvestment,
-    annualInvestment: annualData.annualInvestment,
+    initialInvestment: inputData.initialInvestment,
+    annualInvestment: inputData.annualInvestment,
   };
   const secondRowData = {
-    expectedReturn: annualData.expectedReturn,
-    duration: annualData.duration,
+    expectedReturn: inputData.expectedReturn,
+    duration: inputData.duration,
   };
+
+  const inputIsValid = inputData.duration > 0;
+
   function handleInputChange(event, label) {
     console.log(label);
-    setAnnualData((prevValue) => {
+    setInputData((prevValue) => {
       return { ...prevValue, [label]: Number(event.target.value) };
     });
   }
 
-  const calcResult = calculateInvestmentResults(annualData);
+  const calcResult = calculateInvestmentResults(inputData);
   return (
     <>
       <Header />
@@ -34,10 +37,15 @@ function App() {
         secondRowData={secondRowData}
         handleInputChange={handleInputChange}
       />
-      <ResultTable
-        calcResult={calcResult}
-        initialInvestment={annualData.initialInvestment}
-      />
+      {!inputIsValid && (
+        <p className="center">Please enter a duration greater than zero.</p>
+      )}
+      {inputIsValid && (
+        <ResultTable
+          calcResult={calcResult}
+          initialInvestment={inputData.initialInvestment}
+        />
+      )}
     </>
   );
 }
