@@ -12,7 +12,9 @@ export default function InputGroup({ label, inputValue, handleInputChange }) {
           type="number"
           required
           value={inputValue[returnLabelName(label[0])]}
-          onChange={(event) => handleInputChange(event, label[0])}
+          onChange={(event) =>
+            handleInputChange(event, returnLabelName(label[0]))
+          }
         />
       </p>
       <p>
@@ -21,7 +23,9 @@ export default function InputGroup({ label, inputValue, handleInputChange }) {
           type="number"
           required
           value={inputValue[returnLabelName(label[1])]}
-          onChange={(event) => handleInputChange(event, label[1])}
+          onChange={(event) =>
+            handleInputChange(event, returnLabelName(label[1]))
+          }
         />
       </p>
     </div>

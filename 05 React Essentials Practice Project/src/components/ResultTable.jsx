@@ -1,6 +1,6 @@
-import TableRow from "./TableRow.jsx";
+import TableBody from "./TableBody.jsx";
 
-export default function ResultTable({ annualData }) {
+export default function ResultTable({ calcResult, initialInvestment }) {
   return (
     <table id="result">
       <thead>
@@ -10,9 +10,12 @@ export default function ResultTable({ annualData }) {
           <th>Interest (Year)</th>
           <th>Total Interest</th>
           <th>Invested Capital</th>
-          <TableRow annualData={annualData} />
         </tr>
       </thead>
+      <TableBody
+        calcResult={calcResult}
+        initialInvestment={initialInvestment}
+      />
       <tbody></tbody>
     </table>
   );

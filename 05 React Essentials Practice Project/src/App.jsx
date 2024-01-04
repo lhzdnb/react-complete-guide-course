@@ -10,7 +10,6 @@ function App() {
     ...INVESTMENT,
     ...SECOND_ROW_DATA,
   });
-  console.log(annualData);
   const investmentData = {
     initialInvestment: annualData.initialInvestment,
     annualInvestment: annualData.annualInvestment,
@@ -20,13 +19,13 @@ function App() {
     duration: annualData.duration,
   };
   function handleInputChange(event, label) {
+    console.log(label);
     setAnnualData((prevValue) => {
       return { ...prevValue, [label]: Number(event.target.value) };
     });
   }
 
   const calcResult = calculateInvestmentResults(annualData);
-  console.log(calcResult);
   return (
     <>
       <Header />
@@ -36,7 +35,10 @@ function App() {
         handleInputChange={handleInputChange}
       />
       .
-      <ResultTable annualData={{ ...annualData }} />
+      <ResultTable
+        calcResult={calcResult}
+        initialInvestment={annualData.initialInvestment}
+      />
     </>
   );
 }
